@@ -9,6 +9,7 @@ private:
 public:
 	Tablero();
 	Casilla * getCasilla(int, int);
+	void setFichaEnCasilla(int, int, Ficha*);
 	void mostrar();
 	~Tablero();
 };

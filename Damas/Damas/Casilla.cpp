@@ -39,7 +39,21 @@ Casilla * Casilla::getVecinos() {
 }
 
 string Casilla::toString() {
-	return (ficha != NULL) ? "|" + ficha->toString(): "|  ";
+	if (ficha != NULL) {
+		switch (ficha->getColor()) {
+		case(NEGRO): Casilla::colorText(9); 
+			break;
+		case(BLANCO): Casilla::colorText(14); 
+			break;
+		default: Casilla::colorText(7);
+		}
+	}
+	return (ficha != NULL) ? "|" + ficha->toString() : "| ";
+}
+
+void Casilla::colorText(int combo) {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, combo);
 }
 
 Casilla::~Casilla()

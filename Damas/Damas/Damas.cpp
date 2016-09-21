@@ -1,12 +1,11 @@
 #include "stdafx.h"
 #include <iostream>
-#include "Tablero.h"
+#include "Partida.h"
 using namespace std;
 
-int main()
-{
-	Tablero *t = new Tablero();
-	t->mostrar();
+int main() {
+	Partida * P1 = new Partida();
+	P1->mostrarTablero();
 	cin.get();
     return 0;
 }

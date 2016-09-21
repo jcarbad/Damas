@@ -1,5 +1,6 @@
 #pragma once
 #include "Ficha.h"
+#include <windows.h>
 using namespace std;
 
 class Casilla {
@@ -15,6 +16,7 @@ public:
 	Casilla * getVecinos();
 	string toString();
 	~Casilla();
+	static void colorText(int);
 	static const int NOROESTE = 0;
 	static const int NORESTE = 1;
 	static const int SURESTE = 2;

@@ -147,6 +147,8 @@
   <ItemGroup>
     <ClInclude Include="Casilla.h" />
     <ClInclude Include="Ficha.h" />
+    <ClInclude Include="Jugador.h" />
+    <ClInclude Include="Partida.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tablero.h" />
     <ClInclude Include="targetver.h" />
@@ -155,6 +157,8 @@
     <ClCompile Include="Casilla.cpp" />
     <ClCompile Include="Damas.cpp" />
     <ClCompile Include="Ficha.cpp" />
+    <ClCompile Include="Jugador.cpp" />
+    <ClCompile Include="Partida.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
