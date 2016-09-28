@@ -7,9 +7,13 @@ using namespace std;
 class Tablero {
 private:
 	Lista* Diag;
-	string Display[8][8];
+	Lista* listVector[8];
+	string Display[17][17];
 public:
 	Tablero();
+	void preparaDisplay();
+	void MostarListadeListas();
+	void mostrarDisplay();
 	~Tablero();
 };
 
