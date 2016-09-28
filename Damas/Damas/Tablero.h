@@ -1,16 +1,15 @@
 #pragma once
 #include <iostream>
-#include "Casilla.h"
+#include <string>
+#include "Lista.h"
 using namespace std;
 
 class Tablero {
 private:
-	Casilla *tabla[8][8];
+	Lista* Diag;
+	string Display[8][8];
 public:
 	Tablero();
-	Casilla * getCasilla(int, int);
-	void setFichaEnCasilla(int, int, Ficha*);
-	void mostrar();
 	~Tablero();
 };
 

@@ -3,39 +3,78 @@
 
 
 Casilla::Casilla() {
-	ficha = NULL;
-	vecinos[NOROESTE] = NULL;
-	vecinos[NORESTE] = NULL;
-	vecinos[SURESTE] = NULL;
-	vecinos[SUROESTE] = NULL;
+	ficha	= NULL;
+	vec_NE	= NULL;
+	vec_NO	= NULL;
+	vec_SO	= NULL;
+	vec_SE	= NULL;
+	posX = 0;
+	posY = 0;
 }
 
-Casilla::Casilla(Ficha *f, Casilla *vec[4]) {
+Casilla::Casilla(int x, int y) {
+	ficha = NULL;
+	vec_NE = NULL;
+	vec_NO = NULL;
+	vec_SO = NULL;
+	vec_SE = NULL;
+	posX = x;
+	posY = y;
+}
+
+Casilla::Casilla(Ficha *f, Casilla* vNE, Casilla *vNO, Casilla *vSO, Casilla* vSE) {
 	ficha = f;
-	vecinos[NOROESTE] = vec[NOROESTE];
-	vecinos[NORESTE] = vec[NORESTE];
-	vecinos[SURESTE] = vec[SURESTE];
-	vecinos[SUROESTE] = vec[SUROESTE];
+	vec_NE = vNE;
+	vec_NO = vNO;
+	vec_SO = vSE;
+	vec_SE = vSO;
+	posX = 0;
+	posY = 0;
+}
+
+Casilla::Casilla(int x, int y, Ficha *f, Casilla* vNE, Casilla *vNO, Casilla *vSO, Casilla* vSE) {
+	ficha = f;
+	vec_NE = vNE;
+	vec_NO = vNO;
+	vec_SO = vSE;
+	vec_SE = vSO;
+	posX = x;
+	posY = y;
 }
 
 void Casilla::setFicha(Ficha *f) {
 	ficha = f;
 }
 
-void Casilla::setVecinos(Casilla *vec[4]) {
-	vecinos[NOROESTE] = vec[NOROESTE];
-	vecinos[NORESTE] = vec[NORESTE];
-	vecinos[SURESTE] = vec[SURESTE];
-	vecinos[SUROESTE] = vec[SUROESTE];
+void Casilla::setVecino(int cual, Casilla *vec) {
+	switch (cual) {
+		case(NE): vec_NE = vec;
+			break;
+		case(NO): vec_NO = vec;
+			break;
+		case(SO): vec_SO = vec;
+			break;
+		case(SE): vec_SE = vec;
+			break;
+	}
+}
+
+void Casilla::setPos(int x, int y) {
+	posX = x;
+	posY = y;
 }
 
 Ficha * Casilla::getFicha() {
 	return ficha;
 }
 
-Casilla * Casilla::getVecinos() {
-	Casilla * vecs[] = {vecinos[0], vecinos[1], vecinos[2], vecinos[3]};
-	return *vecs;
+Casilla * Casilla::getVecino(int cual) {
+	switch (cual) {
+		case(NE):  return vec_NE;
+		case(NO):  return vec_NO;
+		case(SO):  return vec_SO;
+		case(SE):  return vec_SE;
+	}
 }
 
 string Casilla::toString() {
@@ -49,6 +88,14 @@ string Casilla::toString() {
 		}
 	}
 	return (ficha != NULL) ? "|" + ficha->toString() : "| ";
+}
+
+int Casilla::getPosX() {
+	return posX;
+}
+
+int Casilla::getPosY() {
+	return posY;
 }
 
 void Casilla::colorText(int combo) {

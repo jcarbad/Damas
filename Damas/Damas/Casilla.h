@@ -1,25 +1,40 @@
 #pragma once
 #include "Ficha.h"
+#include <string>
 #include <windows.h>
 using namespace std;
 
+# define NE 1
+# define NO 2
+# define SO 3
+# define SE 4
+/*
+	Cada casilla (correspondiente a un nodo).
+	Vecinos:NE = 1, NO = 2, SO = 3, SE = 4;
+*/
 class Casilla {
 private:
 	Ficha *ficha;
-	Casilla *vecinos[4];
+	Casilla *vec_NE;
+	Casilla *vec_NO;
+	Casilla *vec_SO;
+	Casilla *vec_SE;
+	int posX, posY;
+	
 public:
 	Casilla();
-	Casilla(Ficha *, Casilla *[4]);
+	Casilla(int, int);
+	Casilla(Ficha *, Casilla *, Casilla *, Casilla *, Casilla *);
+	Casilla(int, int, Ficha *, Casilla *, Casilla *, Casilla *, Casilla *);
 	void setFicha(Ficha *);
-	void setVecinos(Casilla *[4]);
+	void setVecino(int, Casilla*);
+	void setPos(int, int);
 	Ficha * getFicha();
-	Casilla * getVecinos();
+	Casilla * getVecino(int);
 	string toString();
+	int getPosX();
+	int getPosY();
 	~Casilla();
 	static void colorText(int);
-	static const int NOROESTE = 0;
-	static const int NORESTE = 1;
-	static const int SURESTE = 2;
-	static const int SUROESTE = 3;
 };
 

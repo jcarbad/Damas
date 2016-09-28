@@ -148,6 +148,7 @@
     <ClInclude Include="Casilla.h" />
     <ClInclude Include="Ficha.h" />
     <ClInclude Include="Jugador.h" />
+    <ClInclude Include="Lista.h" />
     <ClInclude Include="Partida.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tablero.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="Damas.cpp" />
     <ClCompile Include="Ficha.cpp" />
     <ClCompile Include="Jugador.cpp" />
+    <ClCompile Include="Lista.cpp" />
     <ClCompile Include="Partida.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

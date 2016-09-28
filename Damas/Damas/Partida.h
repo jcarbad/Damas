@@ -8,7 +8,6 @@ private:
 	Jugador *JNegro, *JBlanco;
 public:
 	Partida();
-	void mostrarTablero();
 	~Partida();
 };
 
