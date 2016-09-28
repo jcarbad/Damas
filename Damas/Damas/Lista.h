@@ -22,7 +22,7 @@ public:
 	void alSiguiente();
 	void irAUltimo();
 	void InsertarFinal(Casilla*);//Final
-	void InsertarAntes(Casilla*);//Adelante
+	void InsertarAntes(Casilla*);//Antes
 	void Vaciar(Casilla*);
 	bool ListaVacia();
 	void Mostrar();
