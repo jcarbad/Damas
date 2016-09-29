@@ -18,7 +18,8 @@ public:
 	Tablero();
 	void preparaDisplay();
 	Casilla* buscaUnaCasilla(int, int);
-	Lista* getSubLista(int);
+	void conectarFilaDeVecinos(int, int);
+	void conectarTodos();
 	void MostarListadeListas();
 	void mostrarDisplay();
 	~Tablero();

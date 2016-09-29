@@ -31,6 +31,7 @@ Tablero::Tablero() {
 		}
 		ListVector[i] = LSO;
 	}
+	conectarTodos();
 }
 
 // Este método es meramente estética, para el Display.
@@ -73,8 +74,34 @@ Casilla * Tablero::buscaUnaCasilla(int x, int y){
 	return NULL;
 }
 
-Lista * Tablero::getSubLista(int i){
-	return ListVector[i];
+void Tablero::conectarFilaDeVecinos(int salto, int limite){
+	// Hace el reconocimiento de una casilla con otra en sentido NOSE.
+	Casilla *deArriba = NULL; // NO
+	Casilla *deAbajo = NULL;  // SE
+	for (int i = 0; i < limite - 1; i++) {
+		deArriba = this->buscaUnaCasilla(i, i + salto);
+		deAbajo = this->buscaUnaCasilla(i + 1, i + salto + 1);
+		deArriba->setVecino(SE, deAbajo);
+		deAbajo->setVecino(NO, deArriba);
+		/*
+			Se hace lo mismo pero con coords. invertidas para la
+			triangular inferior.
+		*/
+		deArriba = this->buscaUnaCasilla(i + salto, i);
+		deAbajo = this->buscaUnaCasilla(i + salto + 1, i + 1);
+		deArriba->setVecino(SE, deAbajo);
+		deAbajo->setVecino(NO, deArriba);
+	}
+}
+
+void Tablero::conectarTodos(){
+	/*
+		Sergei Varsov: Mae esta vara esta medio saica, vea 
+		el dibujo que le mande y si no cualquier vara me dice.
+	*/
+	conectarFilaDeVecinos(2, 6);
+	conectarFilaDeVecinos(4, 4);
+	conectarFilaDeVecinos(6, 2);
 }
 
 // Método para pruebas, únicamente.

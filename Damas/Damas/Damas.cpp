@@ -6,9 +6,9 @@ using namespace std;
 int main() {
 	Tablero *board = new Tablero();
 	board->MostarListadeListas();
-	cout << "\n\n Buscando casilla (5, 7)....";
-	Casilla *F = board->buscaUnaCasilla(5,7);
-	F ? cout << "\n\tEncontrada!" : cout << "\n\tNo se encontro (NULL)" ;
+	// Este es el que hace el brete de conectarlos  board->conectarTodos();
+	// Ya se llama en el constructor
+
 	///*board->preparaDisplay();
 	//board->mostrarDisplay();*/
 	cin.get();
