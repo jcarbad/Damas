@@ -83,7 +83,7 @@ void Lista::Mostrar(){
 
 Casilla* Lista::buscarCasilla(int x, int y){
 	irAPrimero();
-	while (pLista->getVecino(SE) || pLista->getVecino(NE)) {
+	while (pLista) {
 		if (pLista->getPosX() == x && pLista->getPosY() == y)
 			return pLista;
 		alSiguiente();

@@ -2,6 +2,12 @@
 #include <iostream>
 using namespace std;
 /*
+	Las listas se unen mediante un doble enlace con cada uno de sus vecinos [NO, NE, SO, SE].
+
+	pPio: Puntero que se fija al principio de la lista.
+	pLista: Puntero movible que se desplaza a lo largo de la lista.
+	sentido: Sentido del desplazamiento en la lista.
+
 	Convención:
 	Sea #1 ir en sentido NO->SE. 
 	Sea #2 ir en sentido SO->NE.
