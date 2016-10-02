@@ -22,6 +22,8 @@ public:
 	void conectarTodos();
 	void MostarListadeListas();
 	void mostrarDisplay();
+	bool comer(int, int);
+	bool moverNO(int,int);
 	~Tablero();
 };
 
