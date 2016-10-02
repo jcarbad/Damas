@@ -115,12 +115,42 @@ void Tablero::MostarListadeListas(){
 	}
 }
 
+
 void Tablero::mostrarDisplay(){
 	for (int i = 0; i < 17; i++) {
 		cout << endl;
 		for (int j = 0; j < 17; j++)
 			cout << Display[i][j];
 	}
+}
+
+
+bool Tablero:: comer(int x, int y){
+	Casilla *actual = buscaUnaCasilla(x,y);
+	if(actual->getFicha() != NULL){
+		actual->setFicha(NULL);
+		return true;
+	}else return false;
+	
+}
+
+bool Tablero:: moverNO(int x, int y){
+	Casilla *actual = buscaUnaCasilla(x,y);
+	Ficha *aux;
+	if(actual->getVecino(2)->getFicha() == NULL || actual->getVecino(2)->getVecino(2)->getFicha()){
+		if(comer(actual->getVecino(2)->getPosX(),actual->getVecino(2)->getPosY())){
+			aux = actual->getFicha();
+			actual->setFicha(NULL);
+			actual = actual->getVecino(2);
+			actual = actual->getVecino(2);
+			actual->setFicha(aux);
+		}else{
+			aux = actual->getFicha();
+			actual->setFicha(NULL);
+			actual = actual->getVecino(2);
+			actual->setFicha(aux);
+		}return true;
+	}else return false;
 }
 
 Tablero::~Tablero(){
