@@ -13,15 +13,12 @@ class Tablero {
 private:
 	Lista* Diag;
 	Lista* ListVector[8];
-	string Display[17][17];
 public:
 	Tablero();
-	void preparaDisplay();
 	Casilla* buscaUnaCasilla(int, int);
 	void conectarFilaDeVecinos(int, int);
 	void conectarTodos();
 	void MostarListadeListas();
-	void mostrarDisplay();
 	~Tablero();
 };
 

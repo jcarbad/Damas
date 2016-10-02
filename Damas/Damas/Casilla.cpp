@@ -78,16 +78,8 @@ Casilla * Casilla::getVecino(int cual) {
 }
 
 string Casilla::toString() {
-	if (ficha != NULL) {
-		switch (ficha->getColor()) {
-		case(NEGRO): Casilla::colorText(9); 
-			break;
-		case(BLANCO): Casilla::colorText(14); 
-			break;
-		default: Casilla::colorText(7);
-		}
-	}
-	return (ficha != NULL) ? "|" + ficha->toString() : "| ";
+	// Si la casilla esta vacia su ficha sera NULL
+	return (ficha) ? ficha->toString(): "   ";
 }
 
 int Casilla::getPosX() {

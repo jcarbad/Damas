@@ -14,6 +14,7 @@ private:
 	bool corona;
 public:
 	Ficha();
+	Ficha(int);
 	Ficha(int, bool);
 	void setColor(int);
 	void setCorona(bool);
