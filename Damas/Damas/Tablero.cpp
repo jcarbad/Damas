@@ -50,7 +50,7 @@ Casilla * Tablero::buscaUnaCasilla(int x, int y){
 }
 
 void Tablero::conectarFilaDeVecinos(int salto, int limite){
-	// Hace el reconocimiento de una casilla con otra en sentido NOSE.
+	// Hace el reconocimiento de una casilla con otra en direccion NOSE.
 	Casilla *deArriba = NULL; // NO
 	Casilla *deAbajo = NULL;  // SE
 	for (int i = 0; i < limite - 1; i++) {
@@ -92,3 +92,32 @@ void Tablero::MostarListadeListas(){
 
 Tablero::~Tablero(){
 }
+
+bool Tablero:: comer(int x, int y){
+	Casilla *actual = buscaUnaCasilla(x,y);
+	if(actual->getFicha() != NULL){
+		actual->setFicha(NULL);
+		return true;
+	}else return false;
+	
+}
+
+bool Tablero:: moverFicha(int x, int y, int direccion){
+	Casilla *actual = buscaUnaCasilla(x,y);
+	Ficha *aux;
+	if(actual->getVecino(direccion)->getFicha() == NULL || actual->getVecino(direccion)->getVecino(direccion)->getFicha()){
+		if(comer(actual->getVecino(direccion)->getPosX(),actual->getVecino(direccion)->getPosY())){
+			aux = actual->getFicha();
+			actual->setFicha(NULL);
+			actual = actual->getVecino(direccion);
+			actual = actual->getVecino(direccion);
+			actual->setFicha(aux);
+		}else{
+			aux = actual->getFicha();
+			actual->setFicha(NULL);
+			actual = actual->getVecino(direccion);
+			actual->setFicha(aux);
+		}return true;
+	}else return false;
+}
+

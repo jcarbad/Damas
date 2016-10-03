@@ -67,3 +67,7 @@ void Partida::mostrarDisplay() {
 		}
 	}
 }
+
+void Partida::moverFicha(int x, int y, int direccion){
+	tabla->moverFicha(x,y,direccion);
+}

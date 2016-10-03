@@ -13,5 +13,6 @@ public:
 	bool colocarFichaEn(int x, int y, Ficha*);
 	void mostrarDisplay();
 	void preparaDisplay();
+	void moverFicha(int x, int y, int direccion);
 };
 

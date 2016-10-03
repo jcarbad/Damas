@@ -19,6 +19,8 @@ public:
 	void conectarFilaDeVecinos(int, int);
 	void conectarTodos();
 	void MostarListadeListas();
+	bool comer(int, int);
+	bool moverFicha(int,int,int);
 	~Tablero();
 };
 
