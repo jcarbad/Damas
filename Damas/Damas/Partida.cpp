@@ -20,7 +20,8 @@ bool Partida::colocarFichaEn(int x, int y, Ficha* ficha){
 	else {
 		setEn->setFicha(ficha);
 		// Ajuste para mostrar en display.
-		Display[2 * x + 1][2 * y + 1] = setEn->getFicha()->toString();
+		if (ficha) Display[2 * x + 1][2 * y + 1] = setEn->getFicha()->toString();
+		else Display[2 * x + 1][2 * y + 1] = "   ";
 	}
 }
 
@@ -49,6 +50,11 @@ void Partida::preparaDisplay() {
 			//---------------- Espacios vacios ------------------
 		}
 	}
+}
+
+Tablero * Partida::getTabla()
+{
+	return this->tabla;
 }
 
 void Partida::mostrarDisplay() {
@@ -110,15 +116,55 @@ void Partida::colocacionInicialDeFichas() {
 }
 
 bool Partida::hacerMovimiento(int x_orig, int y_orig, int x_dest, int y_dest) {
+	if ((x_orig + y_orig) % 2 == 1 || (x_dest + y_dest) % 2 == 1) 
+		return false; // Si la suma de las coordenadas es impar, la casilla es invalida.
 	Casilla *cOrigen = tabla->buscaUnaCasilla(x_orig, y_orig);
 	Casilla *cDestino = tabla->buscaUnaCasilla(x_dest, y_dest);
 	if (cOrigen && cOrigen->getFicha()) {
+		Ficha *fOrigen = cOrigen->getFicha();
+		Ficha *fDestino = cDestino->getFicha();
 		int vecino = cOrigen->esMiVecino(cDestino);
 		if (vecino != -1) {
-			// Estoy trabajando en este
-			if (vecino) return true; // FALTAAAA
+			if (fDestino == nullptr) { // Casilla destino esta vacia
+				if (fOrigen->getColor() == BLANCO && (vecino == NO || vecino == NE)) {
+					colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), fOrigen);
+					colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
+					return true;
+				}
+				if (fOrigen->getColor() == NEGRO && (vecino == SO || vecino == SE)) {
+					colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), fOrigen);
+					colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
+					return true;
+				}
+			}
+			else { // Si la casilla destino tiene alguna ficha
+				if ((fOrigen->getColor() != fDestino->getColor()) && cDestino->getVecino(vecino)->getFicha() == nullptr) { // Se lo puede comer.
+					if (fOrigen->getColor() == BLANCO && (vecino == NO || vecino == NE)) {
+						// Se lo moncha
+						colocarFichaEn(cDestino->getVecino(vecino)->getPosX(), cDestino->getVecino(vecino)->getPosY(), fOrigen);
+						colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
+						colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), nullptr);
+						JNegro->perderFicha();
+						return true;
+					}
+					if (fOrigen->getColor() == NEGRO && (vecino == SO || vecino == SE)) {
+						colocarFichaEn(cDestino->getVecino(vecino)->getPosX(), cDestino->getVecino(vecino)->getPosY(), fOrigen);
+						colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
+						colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), nullptr);
+						JBlanco->perderFicha();
+						return true;
+						/*cDestino->getVecino(vecino)->setFicha(fOrigen);
+						cOrigen->setFicha(nullptr);
+						cDestino->setFicha(nullptr);
+						JBlanco->perderFicha();
+						return true;*/
+					}
+				}
+				else return false; //Ficha de origen y destino son del mismo color || casilla despues de cDestino esta ocupada
+			}
 		}
 		else return false; // No son adyacentes.
 	}
 	else return false; // Casilla de origen vacia
 }
+

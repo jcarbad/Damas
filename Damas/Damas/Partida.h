@@ -13,6 +13,7 @@ public:
 	bool colocarFichaEn(int x, int y, Ficha*);
 	void mostrarDisplay();
 	void preparaDisplay();
+	Tablero* getTabla();
 	void moverFicha(int x, int y, int direccion);
 	void colocacionInicialDeFichas();
 	bool hacerMovimiento(int, int, int, int);
