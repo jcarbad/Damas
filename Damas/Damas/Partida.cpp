@@ -71,3 +71,37 @@ void Partida::mostrarDisplay() {
 void Partida::moverFicha(int x, int y, int direccion){
 	tabla->moverFicha(x,y,direccion);
 }
+
+void Partida::colocacionInicialDeFichas() {
+	int index = 0; // index es para ir "vaciando" las fichas[12] de cada jugador
+	// Inicia con las fichas del JNegro (Arriba)
+	for (int i = 0; i < 3; i++) {
+		if (i % 2 == 0) {
+			colocarFichaEn(i, 0, JNegro->getFicha(index++));
+			colocarFichaEn(i, 2, JNegro->getFicha(index++));
+			colocarFichaEn(i, 4, JNegro->getFicha(index++));
+			colocarFichaEn(i, 6, JNegro->getFicha(index++));
+		}
+		else {
+			colocarFichaEn(i, 1, JNegro->getFicha(index++));
+			colocarFichaEn(i, 3, JNegro->getFicha(index++));
+			colocarFichaEn(i, 5, JNegro->getFicha(index++));
+			colocarFichaEn(i, 7, JNegro->getFicha(index++));
+		}
+	}
+	index = 0;
+	for (int i = 5; i < 8; i++) {
+		if (i % 2 == 0) {
+			colocarFichaEn(i, 0, JBlanco->getFicha(index++));
+			colocarFichaEn(i, 2, JBlanco->getFicha(index++));
+			colocarFichaEn(i, 4, JBlanco->getFicha(index++));
+			colocarFichaEn(i, 6, JBlanco->getFicha(index++));
+		}
+		else {
+			colocarFichaEn(i, 1, JBlanco->getFicha(index++));
+			colocarFichaEn(i, 3, JBlanco->getFicha(index++));
+			colocarFichaEn(i, 5, JBlanco->getFicha(index++));
+			colocarFichaEn(i, 7, JBlanco->getFicha(index++));
+		}
+	}
+}

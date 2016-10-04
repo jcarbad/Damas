@@ -14,5 +14,6 @@ public:
 	void mostrarDisplay();
 	void preparaDisplay();
 	void moverFicha(int x, int y, int direccion);
+	void colocacionInicialDeFichas();
 };
 
