@@ -15,5 +15,6 @@ public:
 	void preparaDisplay();
 	void moverFicha(int x, int y, int direccion);
 	void colocacionInicialDeFichas();
+	bool hacerMovimiento(int, int, int, int);
 };
 

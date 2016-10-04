@@ -32,7 +32,9 @@ void Partida::preparaDisplay() {
 			if (i % 2 == 0 && j % 2 == 1) Display[i][j] = "\xCD\xCD\xCD";
 			if (i % 2 == 0 && j % 2 == 0) Display[i][j] = "\xCE";
 			if (i % 2 == 1 && j % 2 == 0) Display[i][j] = "\xBA";
-			if (i % 2 == 1 && j % 2 == 1) Display[i][j] = "   ";
+			// ------- casillas blancas (que no jeugan) ----------
+			if (i % 2 == 1 && j % 2 == 1 && tabla->buscaUnaCasilla(((i-1)/2), (j-1)/2)) Display[i][j] = "   ";
+			if (i % 2 == 1 && j % 2 == 1 && tabla->buscaUnaCasilla(((i - 1) / 2), (j - 1) / 2) ==  nullptr) Display[i][j] = "\xB0\xB0\xB0";
 			//--------------- laterales (izq, der) ---------------
 			if (j == 0 && i % 2 == 0) Display[i][j] = "\xCC";
 			if (j == 16 && i % 2 == 0) Display[i][j] = "\xB9";
@@ -60,8 +62,9 @@ void Partida::mostrarDisplay() {
 		}
 		else cout << "  ";
 		for (int j = 0; j < 17; j++) {
-			if (Display[i][j] == "\x01") Casilla::colorText(12);
-			if (Display[i][j] == "\x02") Casilla::colorText(14);
+			if (Display[i][j] == " \x01 ") Casilla::colorText(10);
+			if (Display[i][j] == " \x02 ") Casilla::colorText(14);
+			if (Display[i][j] == "\xB0\xB0\xB0") Casilla::colorText(7);
 			cout << Display[i][j];
 			Casilla::colorText(7);
 		}
@@ -104,4 +107,18 @@ void Partida::colocacionInicialDeFichas() {
 			colocarFichaEn(i, 7, JBlanco->getFicha(index++));
 		}
 	}
+}
+
+bool Partida::hacerMovimiento(int x_orig, int y_orig, int x_dest, int y_dest) {
+	Casilla *cOrigen = tabla->buscaUnaCasilla(x_orig, y_orig);
+	Casilla *cDestino = tabla->buscaUnaCasilla(x_dest, y_dest);
+	if (cOrigen && cOrigen->getFicha()) {
+		int vecino = cOrigen->esMiVecino(cDestino);
+		if (vecino != -1) {
+			// Estoy trabajando en este
+			if (vecino) return true; // FALTAAAA
+		}
+		else return false; // No son adyacentes.
+	}
+	else return false; // Casilla de origen vacia
 }

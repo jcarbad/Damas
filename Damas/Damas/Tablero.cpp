@@ -121,3 +121,14 @@ bool Tablero:: moverFicha(int x, int y, int direccion){
 	}else return false;
 }
 
+bool Tablero::moverFichaA(Casilla *org, Casilla *dest){
+	if (dest->getFicha()) return false; // Casilla ocupada
+	else {
+		dest->setFicha(org->getFicha());
+		org->setFicha(nullptr);
+		return true;
+	}
+}
+
+
+

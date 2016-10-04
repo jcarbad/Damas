@@ -90,6 +90,14 @@ int Casilla::getPosY() {
 	return posY;
 }
 
+int Casilla::esMiVecino(Casilla *queSoy){
+	if (queSoy == vec_NO) return NO;
+	if (queSoy == vec_NE) return NE;
+	if (queSoy == vec_SO) return SO;
+	if (queSoy == vec_SE) return SE;
+	else return -1;
+}
+
 void Casilla::colorText(int combo) {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, combo);
