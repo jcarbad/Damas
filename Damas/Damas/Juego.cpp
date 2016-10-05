@@ -7,7 +7,7 @@ Juego::Juego(): partida(new Partida()){
 }
 
 void Juego::bienvenida() {
-	resizeConsole();
+	//resizeConsole();
 	stringstream s, sub;
 	s	<< "\n .----------------.  .----------------.  .----------------.  .----------------.  .----------------. "
 		<< "\n| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |"
@@ -106,8 +106,8 @@ void Juego::resizeConsole() {
 	// Populate cfi with the screen buffer's current font info
 	GetCurrentConsoleFontEx(hConsole, FALSE, &cfi);
 	// Modify the font size in cfi
-	cfi.dwFontSize.X *= 1.5;
-	cfi.dwFontSize.Y *= 1.5;
+	cfi.dwFontSize.X *= 1.25;
+	cfi.dwFontSize.Y *= 1.25;
 	// Use cfi to set the screen buffer's new font
 	SetCurrentConsoleFontEx(hConsole, FALSE, &cfi);
 }
@@ -115,11 +115,44 @@ void Juego::resizeConsole() {
 void Juego::iniciarPartida() {
 	system("cls");
 	partida = new Partida();
-	partida->mostrarDisplay();
-	cout << "\n\n\t\t Falta gestionar turnos, mostrar fichas,"
-		<< "\n\t\t coronar, permitir movimientos con corona,"
-		<< "\n\t\t comer de manera multiple y que se muestre bien."
-		<< "\n\t\t Creo que, al chile, eso es todo!!....\n\n\n\t\t ";
-	system("pause");
+	while (!partida->seTermino()) {
+		partida->mostrarDisplay();
+		partida->getJBlanco()->mostrarFichas();
+		partida->getJNegro()->mostrarFichas();
+		while (!jugarTurnoDe(BLANCO));
+		partida->mostrarDisplay();
+		while (!jugarTurnoDe(NEGRO));
+		partida->mostrarDisplay();
+	}
 	menuPrincipal();
 }
+
+bool Juego::jugarTurnoDe(int jugador) {
+	int posx = -1, posy = -1, dir = -1;
+	while (true) {
+		cout << "\n\nTurno de ";
+		if (jugador == BLANCO) {
+			Casilla::colorText(10);
+			cout << " BLANCO";
+		}
+		else {
+			Casilla::colorText(14);
+			cout << " NEGRO";
+		}
+		Casilla::colorText(7);
+		cout << "\nMover ficha en:\n\t\t Fila: ";
+		cin >> posx;
+		cout << "\n\tColumna:";
+		cin >> posy;
+		cout << "\n\tEn direccion? (NE=1, NO=2, SO=3, SE=4)";
+		cin >> dir;
+		if (posx <= 7 && posx >= 0 && posy <= 7 && posy >= 0 && dir <= 4 && dir >= 1)
+			return partida->hacerMovimiento(posx, posy, dir, jugador);
+		else {
+			cout << "Error, intente de nuevo.\n";
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+	}
+}
+

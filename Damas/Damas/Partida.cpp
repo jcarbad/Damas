@@ -8,7 +8,6 @@ Partida::Partida()
 	colocacionInicialDeFichas();
 }
 
-
 Partida::~Partida()
 {
 }
@@ -78,6 +77,7 @@ bool Partida::comer(int x, int y){
 }
 
 void Partida::mostrarDisplay() {
+	system("cls");
 	Casilla *actual = nullptr;
 	cout << "\n\n\t    0   1   2   3   4   5   6   7";
 	for (int i = 0, cols = 0; i < 17; i++) {
@@ -88,8 +88,8 @@ void Partida::mostrarDisplay() {
 		}
 		else cout << "  ";
 		for (int j = 0; j < 17; j++) {
-			if (Display[i][j] == " \x01 ") Casilla::colorText(10);
-			if (Display[i][j] == " \x02 ") Casilla::colorText(14);
+			if (Display[i][j] == " \x01 " || Display[i][j] == " \x05 ") Casilla::colorText(10);
+			if (Display[i][j] == " \x02 " || Display[i][j] == " \x06 ") Casilla::colorText(14);
 			if (Display[i][j] == "\xB0\xB0\xB0") Casilla::colorText(7);
 			cout << Display[i][j];
 			Casilla::colorText(7);
@@ -158,10 +158,10 @@ void Partida::colocacionInicialDeFichas() {
 }
 
 bool Partida::hacerMovimiento(int x_orig, int y_orig, int direccion, int jugador){
-	if ((x_orig + y_orig) % 2 == 1 || direccion ) 
+	if ((x_orig + y_orig) % 2 == 1) 
 		return false; // Si la suma de las coordenadas es impar, la casilla es invalida.
 	Casilla *cOrigen = tabla->buscaUnaCasilla(x_orig, y_orig);
-	if (cOrigen->getFicha()->getColor() == jugador) // Ficha a mover no le pertenece al jugador. 
+	if (cOrigen->getFicha()->getColor() != jugador) // Ficha a mover no le pertenece al jugador. 
 		return false;
 	if (cOrigen && cOrigen->getFicha()) {
 		Casilla *cDestino = cOrigen->getVecino(direccion);
