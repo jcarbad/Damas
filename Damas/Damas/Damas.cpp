@@ -9,7 +9,7 @@ int main() {
 	//juego->bienvenida();
 
 	Partida *p = new Partida();	
-	p->colocarFichaEn(1,1, new Ficha(NEGRO,NULL));
+	p->colocarFichaEn(1,1, new Ficha(NEGRO,TRUE));
 	p->colocarFichaEn(6,6, new Ficha(BLANCO,NULL));
 	p->colocarFichaEn(4,4, new Ficha(BLANCO,NULL));
 	p->colocarFichaEn(2,2, new Ficha(BLANCO,NULL));	p->mostrarDisplay();

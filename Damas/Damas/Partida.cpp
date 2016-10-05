@@ -168,67 +168,79 @@ bool Partida::hacerMovimiento(int x_orig, int y_orig, int direccion, int jugador
 		Ficha *fOrigen = cOrigen->getFicha();
 		Ficha *fDestino = cDestino->getFicha();
 		if (fDestino == nullptr) { // Casilla destino esta vacia
-			if (fOrigen->getColor() == BLANCO && (direccion == NO || direccion == NE)) {
-				colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), fOrigen);
-				colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
-				return true;
+			if (fOrigen->getColor() == BLANCO ) {
+					if(!fOrigen->getCorona()&&  (direccion == SO || direccion == SE) || fOrigen->getCorona()){
+					colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), fOrigen);
+					colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
+					return true;
+					}
 			}
-			if (fOrigen->getColor() == NEGRO && (direccion == SO || direccion == SE)) {
-				colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), fOrigen);
-				colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
-				return true;
+			
+
+				if (fOrigen->getColor() == NEGRO ) {
+					if(!fOrigen->getCorona()&&  (direccion == SO || direccion == SE) || fOrigen->getCorona()){
+
+					colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), fOrigen);
+					colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
+					return true;
+					}
 			}
 		} else { // Si la casilla destino tiene alguna ficha
 			if ((fOrigen->getColor() != fDestino->getColor())//diferente color
 				&& cDestino->getVecino(direccion)->getFicha() == nullptr) { // Se lo puede comer.
-				if (fOrigen->getColor() == BLANCO && (direccion == NO || direccion == NE)) {
-					// Se lo moncha
-					colocarFichaEn(cDestino->getVecino(direccion)->getPosX(), cDestino->getVecino(direccion)->getPosY(), fOrigen);
-					colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
-					colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), nullptr);
-					JNegro->perderFicha();
-					cOrigen = cDestino->getVecino(direccion);
-					cDestino = cOrigen->getVecino(direccion);
-
-					while(cDestino->getFicha() != nullptr //si el siguiente tiene ficha
-							&& cDestino->getVecino(direccion)->getFicha() == nullptr){// y el que le sigue al siguiente no tiene ficha
-						//coma
-						
-						colocarFichaEn(cDestino->getVecino(direccion)->getPosX(),cDestino->getVecino(direccion)->getPosY(),cOrigen->getFicha());
-						colocarFichaEn(cOrigen->getPosX(),                       cOrigen->getPosY(),                        nullptr);
+				if (fOrigen->getColor() == BLANCO ) {
+					if(!fOrigen->getCorona()&&  (direccion == SO || direccion == SE) || fOrigen->getCorona()){
+						// Se lo moncha
+						colocarFichaEn(cDestino->getVecino(direccion)->getPosX(), cDestino->getVecino(direccion)->getPosY(), fOrigen);
+						colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
 						colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), nullptr);
-						cOrigen = cDestino->getVecino(direccion);
-						cDestino = cOrigen->getVecino(direccion);
 						JNegro->perderFicha();
-					
-						if(cDestino == nullptr)break;
-					}
-					return true;
-				}
-				if (fOrigen->getColor() == NEGRO && (direccion == SO || direccion == SE)) {
-					colocarFichaEn(cDestino->getVecino(direccion)->getPosX(), cDestino->getVecino(direccion)->getPosY(), fOrigen);
-					colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
-					colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), nullptr);
-					JBlanco->perderFicha();
-					cOrigen = cDestino->getVecino(direccion);
-					cDestino = cOrigen->getVecino(direccion);
-
-					while(cDestino->getFicha() != nullptr //si el siguiente tiene ficha
-							&& cDestino->getVecino(direccion)->getFicha() == nullptr){// y el que le sigue al siguiente no tiene ficha
-						//coma
-						
-						colocarFichaEn(cDestino->getVecino(direccion)->getPosX(),cDestino->getVecino(direccion)->getPosY(),cOrigen->getFicha());
-						colocarFichaEn(cOrigen->getPosX(),                       cOrigen->getPosY(),                        nullptr);
-						colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), nullptr);
 						cOrigen = cDestino->getVecino(direccion);
 						cDestino = cOrigen->getVecino(direccion);
-						JBlanco->perderFicha();
+
+						while(cDestino->getFicha() != nullptr //si el siguiente tiene ficha
+								&& cDestino->getVecino(direccion)->getFicha() == nullptr){// y el que le sigue al siguiente no tiene ficha
+							//coma
+						
+							colocarFichaEn(cDestino->getVecino(direccion)->getPosX(),cDestino->getVecino(direccion)->getPosY(),cOrigen->getFicha());
+							colocarFichaEn(cOrigen->getPosX(),                       cOrigen->getPosY(),                        nullptr);
+							colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), nullptr);
+							cOrigen = cDestino->getVecino(direccion);
+							cDestino = cOrigen->getVecino(direccion);
+							JNegro->perderFicha();
 					
-						if(cDestino == nullptr)break;
+							if(cDestino == nullptr)break;
+						
+						}
+						return true;
 					}
+				}
+				if (fOrigen->getColor() == NEGRO ) {
+					if(!fOrigen->getCorona()&&  (direccion == SO || direccion == SE) || fOrigen->getCorona()){
+						colocarFichaEn(cDestino->getVecino(direccion)->getPosX(), cDestino->getVecino(direccion)->getPosY(), fOrigen);
+						colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
+						colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), nullptr);
+						JBlanco->perderFicha();
+						cOrigen = cDestino->getVecino(direccion);
+						cDestino = cOrigen->getVecino(direccion);
+
+						while(cDestino->getFicha() != nullptr //si el siguiente tiene ficha
+								&& cDestino->getVecino(direccion)->getFicha() == nullptr){// y el que le sigue al siguiente no tiene ficha//coma
+						
+							
+							colocarFichaEn(cDestino->getVecino(direccion)->getPosX(),cDestino->getVecino(direccion)->getPosY(),cOrigen->getFicha());
+							colocarFichaEn(cOrigen->getPosX(),                       cOrigen->getPosY(),                        nullptr);
+							colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), nullptr);
+							cOrigen = cDestino->getVecino(direccion);
+							cDestino = cOrigen->getVecino(direccion);
+							JBlanco->perderFicha();
+					
+							if(cDestino == nullptr)break;
+						}
 
 
 					return true;
+					}
 				}
 			} else return false; //Ficha de origen y destino son del mismo color || casilla despues de cDestino esta ocupada
 		}
