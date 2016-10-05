@@ -153,7 +153,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tablero.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Vista.h" />
+    <ClInclude Include="Juego.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Casilla.cpp" />
@@ -169,7 +169,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Tablero.cpp" />
-    <ClCompile Include="Vista.cpp" />
+    <ClCompile Include="Juego.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

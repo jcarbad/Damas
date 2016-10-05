@@ -10,12 +10,16 @@ private:
 public:
 	Partida();
 	~Partida();
+	Jugador* getJNegro();
+	Jugador* getJBlanco();
 	bool colocarFichaEn(int x, int y, Ficha*);
 	void mostrarDisplay();
 	void preparaDisplay();
 	Tablero* getTabla();
-	void moverFicha(int x, int y, int direccion);
+	bool comer(int x, int y);
+	bool moverFicha(int x, int y, int direccion);
 	void colocacionInicialDeFichas();
-	bool hacerMovimiento(int, int, int, int);
+	bool hacerMovimiento(int, int, int, int); // Hibrido de metodos.
+	bool seTermino();
 };
 

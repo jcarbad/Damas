@@ -42,7 +42,7 @@
     <ClInclude Include="Lista.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vista.h">
+    <ClInclude Include="Juego.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -71,7 +71,7 @@
     <ClCompile Include="Lista.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vista.cpp">
+    <ClCompile Include="Juego.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
