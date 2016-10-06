@@ -32,9 +32,8 @@ bool Ficha::getCorona() {
 
 string Ficha::toString() {
 	string dibujo = "";
-	if (corona && color == NEGRO) return dibujo += " \06 ";
-		else if (corona && color == BLANCO) return dibujo += " \05 ";
-			else  return (color == NEGRO) ? dibujo += " \x02 ": dibujo += " \x01 ";
+	(corona) ? dibujo += "X": dibujo += " ";
+	return (color == NEGRO) ? dibujo += "\x02 ": dibujo += "\x01 ";
 }
 
 Ficha::~Ficha()

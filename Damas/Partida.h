@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Tablero.h"
 #include "Jugador.h"
 using namespace std;

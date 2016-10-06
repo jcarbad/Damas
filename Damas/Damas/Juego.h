@@ -14,7 +14,6 @@ public:
 	void bienvenida();
 	void menuPrincipal();
 	void iniciarPartida();
-	bool jugarTurnoDe(int);
 	void showInfo();
 	void salir();
 	~Juego();
