@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Ficha.h"
+#include "Casilla.h"
 using namespace std;
 
 class Jugador {

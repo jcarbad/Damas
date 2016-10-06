@@ -7,7 +7,7 @@ Juego::Juego(): partida(new Partida()){
 }
 
 void Juego::bienvenida() {
-	//resizeConsole();
+	resizeConsole();
 	stringstream s, sub;
 	s	<< "\n .----------------.  .----------------.  .----------------.  .----------------.  .----------------. "
 		<< "\n| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |"
@@ -106,8 +106,8 @@ void Juego::resizeConsole() {
 	// Populate cfi with the screen buffer's current font info
 	GetCurrentConsoleFontEx(hConsole, FALSE, &cfi);
 	// Modify the font size in cfi
-	cfi.dwFontSize.X *= 1.25;
-	cfi.dwFontSize.Y *= 1.25;
+	cfi.dwFontSize.X *= 2;
+	cfi.dwFontSize.Y *= 2;
 	// Use cfi to set the screen buffer's new font
 	SetCurrentConsoleFontEx(hConsole, FALSE, &cfi);
 }
@@ -117,12 +117,16 @@ void Juego::iniciarPartida() {
 	partida = new Partida();
 	while (!partida->seTermino()) {
 		partida->mostrarDisplay();
+		cout << endl;
 		partida->getJBlanco()->mostrarFichas();
 		partida->getJNegro()->mostrarFichas();
 		while (!jugarTurnoDe(BLANCO));
 		partida->mostrarDisplay();
+		cout << endl;
+		partida->getJBlanco()->mostrarFichas();
+		partida->getJNegro()->mostrarFichas();
 		while (!jugarTurnoDe(NEGRO));
-		partida->mostrarDisplay();
+		//partida->mostrarDisplay();
 	}
 	menuPrincipal();
 }
@@ -130,7 +134,7 @@ void Juego::iniciarPartida() {
 bool Juego::jugarTurnoDe(int jugador) {
 	int posx = -1, posy = -1, dir = -1;
 	while (true) {
-		cout << "\n\nTurno de ";
+		cout << "\n\xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \n\tTurno de ";
 		if (jugador == BLANCO) {
 			Casilla::colorText(10);
 			cout << " BLANCO";
@@ -140,18 +144,29 @@ bool Juego::jugarTurnoDe(int jugador) {
 			cout << " NEGRO";
 		}
 		Casilla::colorText(7);
-		cout << "\nMover ficha en:\n\t\t Fila: ";
+		cout << "\n\nMover ficha en:\n    Fila:    ";
 		cin >> posx;
-		cout << "\n\tColumna:";
+		cout << "    Columna: ";
 		cin >> posy;
-		cout << "\n\tEn direccion? (NE=1, NO=2, SO=3, SE=4)";
+		cout << "    En direccion? (NE=1, NO=2, SO=3, SE=4)  ";
 		cin >> dir;
-		if (posx <= 7 && posx >= 0 && posy <= 7 && posy >= 0 && dir <= 4 && dir >= 1)
-			return partida->hacerMovimiento(posx, posy, dir, jugador);
+		if (posx <= 7 && posx >= 0 && posy <= 7 && posy >= 0 && dir <= 4 && dir >= 1) {
+			//return partida->hacerMovimiento(posx, posy, dir, jugador) ? true : Casilla::colorText(12), cout << "\tMovimiento inv\xA0lido!!!",Casilla::colorText(7), false;
+			if (partida->hacerMovimiento(posx, posy, dir, jugador))
+				return true;
+			else {
+				Casilla::colorText(12);
+				cout << "\tMovimiento inv\xA0lido!!!";
+				Casilla::colorText(7);
+				return false;
+			}
+		}
 		else {
-			cout << "Error, intente de nuevo.\n";
+			Casilla::colorText(12);
+			cout << "\n\tError, intente de nuevo.\n";
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			Casilla::colorText(7);
 		}
 	}
 }

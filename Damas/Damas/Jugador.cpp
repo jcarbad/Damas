@@ -42,14 +42,22 @@ Ficha* Jugador::getFicha(int index) {
 }
 
 void Jugador::mostrarFichas() {
-	(this->color == NEGRO) ? cout << " NEGRO : ": cout << " BLANCO: " ;
+	if (color == NEGRO) {
+		cout << "\nNEGRO - # de fichas [" << cantActivas << "] :  ";
+		Casilla::colorText(14);
+	}
+	else {
+		cout << "\nBLANCO - # de fichas ["<< cantActivas <<"] :  ";
+		Casilla::colorText(10);
+	}
 	for (int i = 0; i < 12; i++) {
 		if (fichas[i] == NULL)
-			cout << "\xF9";
+			cout << " X ";
 		else 
 			cout << fichas[i]->toString();
 	}
 	cout << endl;
+	Casilla::colorText(7);
 }
 
 Jugador::~Jugador()
