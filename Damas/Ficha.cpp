@@ -7,6 +7,8 @@ Ficha::Ficha(){
 	corona = false;
 }
 
+Ficha::Ficha(int c):color(c), corona(false) {}
+
 Ficha::Ficha(int col, bool cor) {
 	color = col;
 	corona = cor;
@@ -29,9 +31,11 @@ bool Ficha::getCorona() {
 }
 
 string Ficha::toString() {
-	string dibujo = "";
-	(corona) ? dibujo += "X": dibujo += " ";
-	return (color == NEGRO) ? dibujo += "\x02": dibujo += "\x02";
+	if (corona && color == BLANCO) return " \x05 ";
+	if (corona && color == NEGRO) return " \x06 ";
+	if (color == BLANCO) return " \x01 ";
+	if (color == NEGRO) return " \x02 ";
+	// NEGRO 02, 06 BLANCO 01, 05
 }
 
 Ficha::~Ficha()

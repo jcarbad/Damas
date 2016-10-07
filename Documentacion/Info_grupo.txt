@@ -7,4 +7,4 @@ Estructuras de Datos. II-2015
 
 Integrantes:
 -Joan Carballo Badilla
--Sergio Vargas UreÃ±a
+-Sergio Vargas Ureña

@@ -34,6 +34,7 @@ public:
 	string toString();
 	int getPosX();
 	int getPosY();
+	int esMiVecino(Casilla*);
 	~Casilla();
 	static void colorText(int);
 };

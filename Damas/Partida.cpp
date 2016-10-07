@@ -1,11 +1,11 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "Partida.h"
 
 
 Partida::Partida()
 	:tabla(new Tablero()), JNegro(new Jugador(NEGRO)), JBlanco(new Jugador(BLANCO)) {
 	preparaDisplay();
-	//	colocacionInicialDeFichas();
+	//colocacionInicialDeFichas();
 }
 
 
@@ -62,23 +62,12 @@ void Partida::preparaDisplay() {
 	}
 }
 
-Tablero * Partida::getTabla()
-{
+Tablero * Partida::getTabla(){
 	return this->tabla;
 }
 
-bool Partida::comer(int x, int y) {
-	Casilla *actual = tabla->buscaUnaCasilla(x, y);
-	if (actual->getFicha()) {
-		//actual->setFicha(NULL);
-		colocarFichaEn(actual->getPosX(), actual->getPosY(), nullptr);
-		return true;
-	}
-	else return false;
-}
-
 void Partida::mostrarDisplay() {
-	Casilla *actual = nullptr;
+	system("cls");
 	cout << "\n\n\t    0   1   2   3   4   5   6   7";
 	for (int i = 0, cols = 0; i < 17; i++) {
 		cout << "\n\t";
@@ -88,8 +77,8 @@ void Partida::mostrarDisplay() {
 		}
 		else cout << "  ";
 		for (int j = 0; j < 17; j++) {
-			if (Display[i][j] == " \x01 ") Casilla::colorText(10);
-			if (Display[i][j] == " \x02 ") Casilla::colorText(14);
+			if (Display[i][j] == " \x01 " || Display[i][j] == " \x05 ") Casilla::colorText(10);
+			if (Display[i][j] == " \x02 " || Display[i][j] == " \x06 ") Casilla::colorText(14);
 			if (Display[i][j] == "\xB0\xB0\xB0") Casilla::colorText(7);
 			cout << Display[i][j];
 			Casilla::colorText(7);
@@ -97,35 +86,9 @@ void Partida::mostrarDisplay() {
 	}
 }
 
-bool Partida::moverFicha(int x, int y, int direccion) {
-	//tabla->moverFicha(x,y,direccion);
-	Casilla *actual = tabla->buscaUnaCasilla(x, y);
-	Ficha *aux;
-	if (actual->getVecino(direccion)->getFicha() == NULL || actual->getVecino(direccion)->getVecino(direccion)->getFicha()) {
-		if (comer(actual->getVecino(direccion)->getPosX(), actual->getVecino(direccion)->getPosY())) {
-			aux = actual->getFicha();
-			//actual->setFicha(NULL);
-			colocarFichaEn(actual->getPosX(), actual->getPosY(), nullptr);
-			actual = actual->getVecino(direccion);
-			actual = actual->getVecino(direccion);
-			//actual->setFicha(aux);
-			colocarFichaEn(actual->getPosX(), actual->getPosY(), aux);
-		}
-		else {
-			aux = actual->getFicha();
-			//actual->setFicha(NULL);
-			colocarFichaEn(actual->getPosX(), actual->getPosY(), nullptr);
-			actual = actual->getVecino(direccion);
-			//actual->setFicha(aux);
-			colocarFichaEn(actual->getPosX(), actual->getPosY(), aux);
-		}return true;
-	}
-	else return false;
-}
-
 void Partida::colocacionInicialDeFichas() {
 	int index = 0; // index es para ir "vaciando" las fichas[12] de cada jugador
-				   // Inicia con las fichas del JNegro (Arriba)
+	// Inicia con las fichas del JNegro (Arriba)
 	for (int i = 0; i < 3; i++) {
 		if (i % 2 == 0) {
 			colocarFichaEn(i, 0, JNegro->getFicha(index++));
@@ -169,28 +132,26 @@ bool Partida::hacerMovimiento(int x_orig, int y_orig, int direccion, int jugador
 		Ficha *fDestino = cDestino->getFicha();
 		if (fDestino == nullptr) { // Casilla destino esta vacia
 			if (fOrigen->getColor() == BLANCO) {
-				if (!fOrigen->getCorona() && (direccion == SO || direccion == SE) || fOrigen->getCorona()) {
+				if (!fOrigen->getCorona() && (direccion == NO || direccion == NE) || fOrigen->getCorona()) {
 					colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), fOrigen);
 					colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
+					esReina(cDestino);
 					return true;
 				}
 			}
-
-
 			if (fOrigen->getColor() == NEGRO) {
 				if (!fOrigen->getCorona() && (direccion == SO || direccion == SE) || fOrigen->getCorona()) {
-
 					colocarFichaEn(cDestino->getPosX(), cDestino->getPosY(), fOrigen);
 					colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
+					esReina(cDestino);
 					return true;
 				}
 			}
 		}
 		else { // Si la casilla destino tiene alguna ficha
-			if ((fOrigen->getColor() != fDestino->getColor())//diferente color
-				&& cDestino->getVecino(direccion)->getFicha() == nullptr) { // Se lo puede comer.
+			if ((fOrigen->getColor() != fDestino->getColor()) && cDestino->getVecino(direccion) && cDestino->getVecino(direccion)->getFicha() == nullptr) { // Se lo puede comer.
 				if (fOrigen->getColor() == BLANCO) {
-					if (!fOrigen->getCorona() && (direccion == SO || direccion == SE) || fOrigen->getCorona()) {
+					if (!fOrigen->getCorona() && (direccion == NO || direccion == NE) || fOrigen->getCorona()) {
 						// Se lo moncha
 						colocarFichaEn(cDestino->getVecino(direccion)->getPosX(), cDestino->getVecino(direccion)->getPosY(), fOrigen);
 						colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
@@ -198,10 +159,9 @@ bool Partida::hacerMovimiento(int x_orig, int y_orig, int direccion, int jugador
 						JNegro->perderFicha();
 						cOrigen = cDestino->getVecino(direccion);
 						cDestino = cOrigen->getVecino(direccion);
-
-						while (cDestino->getFicha() != nullptr //si el siguiente tiene ficha
-							&& cDestino->getVecino(direccion)->getFicha() == nullptr) {// y el que le sigue al siguiente no tiene ficha
-																					   //coma
+						while (cDestino && cDestino->getVecino(direccion) && cDestino->getFicha() && cDestino->getVecino(direccion)->getFicha() == nullptr) {
+							//si el siguiente tiene ficha y el que le sigue al siguiente no tiene ficha
+						//coma
 
 							colocarFichaEn(cDestino->getVecino(direccion)->getPosX(), cDestino->getVecino(direccion)->getPosY(), cOrigen->getFicha());
 							colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
@@ -213,6 +173,7 @@ bool Partida::hacerMovimiento(int x_orig, int y_orig, int direccion, int jugador
 							if (cDestino == nullptr)break;
 
 						}
+						esReina(cOrigen);
 						return true;
 					}
 				}
@@ -225,9 +186,8 @@ bool Partida::hacerMovimiento(int x_orig, int y_orig, int direccion, int jugador
 						cOrigen = cDestino->getVecino(direccion);
 						cDestino = cOrigen->getVecino(direccion);
 
-						while (cDestino->getFicha() != nullptr //si el siguiente tiene ficha
-							&& cDestino->getVecino(direccion)->getFicha() == nullptr) {// y el que le sigue al siguiente no tiene ficha//coma
-
+						while (cDestino && cDestino->getFicha() && cDestino->getVecino(direccion) && cDestino->getVecino(direccion)->getFicha() == nullptr) {
+							//si el siguiente tiene ficha y el que le sigue al siguiente no tiene ficha//coma
 
 							colocarFichaEn(cDestino->getVecino(direccion)->getPosX(), cDestino->getVecino(direccion)->getPosY(), cOrigen->getFicha());
 							colocarFichaEn(cOrigen->getPosX(), cOrigen->getPosY(), nullptr);
@@ -238,8 +198,7 @@ bool Partida::hacerMovimiento(int x_orig, int y_orig, int direccion, int jugador
 
 							if (cDestino == nullptr)break;
 						}
-
-
+						esReina(cOrigen);
 						return true;
 					}
 				}
@@ -252,4 +211,13 @@ bool Partida::hacerMovimiento(int x_orig, int y_orig, int direccion, int jugador
 
 bool Partida::seTermino() {
 	return JBlanco->yaPerdio() || JNegro->yaPerdio();
+}
+
+bool Partida::esReina(Casilla* ficha){
+	if (ficha->getFicha()->getColor() == BLANCO && ficha->getPosX() == 0)
+		ficha->getFicha()->setCorona(true);
+	if (ficha->getFicha()->getColor() == NEGRO && ficha->getPosX() == 7)
+		ficha->getFicha()->setCorona(true);
+	colocarFichaEn(ficha->getPosX(), ficha->getPosY(), ficha->getFicha());
+	return true;
 }

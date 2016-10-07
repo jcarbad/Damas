@@ -7,7 +7,7 @@ Juego::Juego(): partida(new Partida()){
 }
 
 void Juego::bienvenida() {
-	resizeConsole();
+	//resizeConsole();
 	stringstream s, sub;
 	s	<< "\n .----------------.  .----------------.  .----------------.  .----------------.  .----------------. "
 		<< "\n| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |"
@@ -116,22 +116,17 @@ void Juego::iniciarPartida() {
 	system("cls");
 	partida = new Partida();
 	while (!partida->seTermino()) {
-		partida->mostrarDisplay();
-		cout << endl;
-		partida->getJBlanco()->mostrarFichas();
-		partida->getJNegro()->mostrarFichas();
 		while (!jugarTurnoDe(BLANCO));
-		partida->mostrarDisplay();
-		cout << endl;
-		partida->getJBlanco()->mostrarFichas();
-		partida->getJNegro()->mostrarFichas();
 		while (!jugarTurnoDe(NEGRO));
-		//partida->mostrarDisplay();
 	}
 	menuPrincipal();
 }
 
 bool Juego::jugarTurnoDe(int jugador) {
+	partida->mostrarDisplay();
+	cout << endl;
+	partida->getJBlanco()->mostrarFichas();
+	partida->getJNegro()->mostrarFichas();
 	int posx = -1, posy = -1, dir = -1;
 	while (true) {
 		cout << "\n\xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \n\tTurno de ";
@@ -156,8 +151,9 @@ bool Juego::jugarTurnoDe(int jugador) {
 				return true;
 			else {
 				Casilla::colorText(12);
-				cout << "\tMovimiento inv\xA0lido!!!";
+				cout << "\tMovimiento inv\xA0lido!!!\n\n";
 				Casilla::colorText(7);
+				system("pause");
 				return false;
 			}
 		}
