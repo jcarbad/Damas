@@ -80,15 +80,15 @@ void Juego::showInfo() {
 	cout << "\n\n\tSobre el juego:";
 	cout << "\n\n\t\t Es es un juego de Damas Inglesas en CLI para 2 jugadores. El usuario ";
 	cout << "\n\t es capaz de realizar todos los movimientos normales de un juego de damas,";
-	cout << "\n\t  y el desplazamiento sobre el tablero utlizando la matriz de dislay.";
-	cout << "\n\t\t La estructura subyacente para la implementacion de este juego es una matriz";
-	cout << "\n\t de casillas elaborada listas cuadruplemente enlazadas.";
+	cout << "\n\t  y el desplazamiento sobre el tablero utlizando la matriz de display.";
+	cout << "\n\t\t La estructura subyacente para la implementaci\xA2n de este juego es una matriz";
+	cout << "\n\t de casillas elaborada utilizando listas cuadruplemente enlazadas.";
 	cout << "\n\n\n\tAutores:";
 	cout << "\n\t\t Joan Carballo Badilla - 1-1590-0574 - Grupo 10 AM";
 	cout << "\n\t\t Sergio Vargas Ure\xA4\x61- 1-1590-0574 - Grupo 1 PM";
 	cout << "\n\n\t";
 	system("Pause");
-	menuPrincipal(); // Esto lo despicha (???)
+	menuPrincipal();
 }
 
 void Juego::salir() {
@@ -119,6 +119,8 @@ void Juego::iniciarPartida() {
 		while (!jugarTurnoDe(BLANCO));
 		while (!jugarTurnoDe(NEGRO));
 	}
+	cout << "\n\n\tJUEGO TERMINADO!!!\n";
+	system("pause");
 	menuPrincipal();
 }
 
@@ -146,7 +148,6 @@ bool Juego::jugarTurnoDe(int jugador) {
 		cout << "    En direccion? (NE=1, NO=2, SO=3, SE=4)  ";
 		cin >> dir;
 		if (posx <= 7 && posx >= 0 && posy <= 7 && posy >= 0 && dir <= 4 && dir >= 1) {
-			//return partida->hacerMovimiento(posx, posy, dir, jugador) ? true : Casilla::colorText(12), cout << "\tMovimiento inv\xA0lido!!!",Casilla::colorText(7), false;
 			if (partida->hacerMovimiento(posx, posy, dir, jugador))
 				return true;
 			else {

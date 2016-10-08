@@ -5,7 +5,7 @@
 Partida::Partida()
 	:tabla(new Tablero()), JNegro(new Jugador(NEGRO)), JBlanco(new Jugador(BLANCO)) {
 	preparaDisplay();
-	//colocacionInicialDeFichas();
+	colocacionInicialDeFichas();
 }
 
 

@@ -8,3 +8,6 @@ Estructuras de Datos. II-2015
 Integrantes:
 -Joan Carballo Badilla
 -Sergio Vargas Ureña
+
+**NOTA**: Si no se muestran bien lo titulos en
+ la consola, redimensionar la pantalla del cmd.
