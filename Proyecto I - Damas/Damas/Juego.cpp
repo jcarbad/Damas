@@ -124,6 +124,23 @@ void Juego::iniciarPartida() {
 	menuPrincipal();
 }
 
+void Juego::retirarse(int jugador){
+	Casilla::colorText(15);
+	cout << "\n\tEL JUGADOR  ";
+	if (jugador == NEGRO) {
+		Casilla::colorText(14);
+		cout << "NEGRO";
+	} else {
+		Casilla::colorText(10);
+		cout << "BLANCO";
+	}
+	Casilla::colorText(15);
+	cout << "  DECIDI\xE0 RETIRARSE! \n\n";
+	Casilla::colorText(7);
+	system("pause");
+	menuPrincipal();
+}
+
 bool Juego::jugarTurnoDe(int jugador) {
 	partida->mostrarDisplay();
 	cout << endl;
@@ -131,7 +148,11 @@ bool Juego::jugarTurnoDe(int jugador) {
 	partida->getJNegro()->mostrarFichas();
 	int posx = -1, posy = -1, dir = -1;
 	while (true) {
-		cout << "\n\xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \n\tTurno de ";
+		cout << "\n\xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 \xC4 ";
+		Casilla::colorText(6);
+		cout << "\n** Para retirarse, ingrese un (-1) en \"Fila\" **\n";
+		Casilla::colorText(7);
+		cout << "\n\tTurno de ";
 		if (jugador == BLANCO) {
 			Casilla::colorText(10);
 			cout << " BLANCO";
@@ -143,6 +164,7 @@ bool Juego::jugarTurnoDe(int jugador) {
 		Casilla::colorText(7);
 		cout << "\n\nMover ficha en:\n    Fila:    ";
 		cin >> posx;
+		if (posx < 0) retirarse(jugador);
 		cout << "    Columna: ";
 		cin >> posy;
 		cout << "    En direccion? (NE=1, NO=2, SO=3, SE=4)  ";
